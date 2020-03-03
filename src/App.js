@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import SideMenu from './SideMenu/SideMenu';
+import Board from './Board/Board';
+import { connect } from 'react-redux';
 import './App.css';
+import { Cell } from './Models/Cell';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mineField: []
+    }
+    this.generageMineField = this.generageMineField.bind(this);
+  }
+
+  generageMineField() {
+    for(let i = 0; i < 10; i++) {
+      for(let j = 0; j < 10; j++) {
+        this.setState({
+          mineField: this.state.mineField.concat(new Cell())
+        })
+      }
+    }
+  }
+
+  render() {
+    return (
+      <>
+        <main>
+          <Board mineField={this.state.mineField}/>
+        </main>
+        <aside>
+          <SideMenu />
+        </aside>
+      </>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    mineField: state.mineField
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);
