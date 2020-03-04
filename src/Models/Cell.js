@@ -6,7 +6,7 @@ export class Cell {
     _minesNearby;
 
     constructor(coordX, coordY) {
-        this._isMine = Math.random() < 0.1 ? true : false;
+        this._isMine = Math.random() < 0.15 ? true : false;
         this._coordX = coordX;
         this._coordY = coordY;
         this._isHidden = true;

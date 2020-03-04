@@ -5,7 +5,6 @@ import { startGame } from '../redux/actions/mineFieldIndex';
 
 class SideMenu extends Component {
     render() {
-        console.log(this.props);
         return (
             <div className="menu-wrapper">
                 <div>

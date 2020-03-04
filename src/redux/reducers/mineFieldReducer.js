@@ -5,11 +5,33 @@ const initialState = {
     mineField: [],
 }
 
+const steps = [
+    [-1, -1], [-1, 0], [-1, 1],
+     [0, -1],           [0, 1],
+     [1, -1],  [1, 0],  [1, 1]
+];
+
 function generateField() {
     const mineField = []
     for(let rowCount = 0; rowCount < 10; rowCount++) {
         for(let columnCount = 0; columnCount < 10; columnCount++) {
-            mineField.concat(new Cell(rowCount, columnCount));
+            mineField.push(new Cell(rowCount, columnCount));
+        }
+    }
+    for(let rowCount = 0; rowCount < 10; rowCount++) {
+        for(let columnCount = 0; columnCount < 10; columnCount++) {
+            const Cell = mineField[rowCount * 10 + columnCount];
+            if(!Cell.getIsMine){
+                for(let step = 0; step < steps.length; step++) {
+                    const [ x, y ] = steps[step]; 
+                    const checkCell = mineField[(rowCount + x) * 10 + (columnCount + y)];
+                    if((rowCount + x) >= 0 && (rowCount + x) < 10 
+                        && (columnCount + y) >= 0 && (columnCount + y) < 10
+                        && checkCell.getIsMine){
+                        Cell._minesNearby += 1;
+                    }
+                }
+            }
         }
     }
     return mineField;

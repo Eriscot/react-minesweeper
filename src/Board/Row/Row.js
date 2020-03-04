@@ -11,7 +11,7 @@ class Row extends Component {
     render() {
         let row = [];
         for(let i = 0; i < 10; i++) {
-            row.concat(<Cell />);
+            row.push(<Cell key={i} cell={this.props.cellRow[i]} />);
         }
         return (
             <tr>

@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import mineFieldIndex from './redux/reducers/mineFieldIndex';
+import minesweeperReducer from './redux/reducers/mineFieldReducer';
 
-const store = createStore(mineFieldIndex);
+const store = createStore(minesweeperReducer);
 
 ReactDOM.render(
     <Provider store={store}>
