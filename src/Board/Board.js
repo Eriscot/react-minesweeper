@@ -10,11 +10,10 @@ class Board extends Component {
     }
 
     render() {
-        console.log(this.props.mineField);
         let board = [];
         let markup;
         for(let i = 0; i < 10; i++) {
-            board.push(<Row key={Math.random() * 1000000000} row={i} cellRow={this.props.mineField.slice(i*10, i * 10 + 10)}/>);
+            board.push(<Row key={Math.random() * 1000000000} row={i} cellRow={this.props.mineField[i]}/>);
         }
         if(this.props.mineField.length) {
             markup = 

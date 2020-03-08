@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Cell.css';
+import { toggleCell } from '../../../redux/actions/mineFieldIndex';
 
 class Cell extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props.cell.getIsHidden);
         this.state = {
-            contain: this.props.cell.getIsMine ? 'Mine' : this.props.cell.getMinesNearby
+            contain: this.props.cell.getIsMine ? 'Mine' : this.props.cell.getIsHidden.toString()
         };
 
         this.onRightClickHandler = this.onRightClickHandler.bind(this);
@@ -18,6 +21,11 @@ class Cell extends Component {
 
     onClickHandler(event) {
         event.preventDefault();
+        if(this.props.cell.getIsMine) {
+            alert('The game is over!');
+        } else {
+            this.props.toggleCell(this.props.cell.getCoordX, this.props.cell.getCoordY);
+        }
     }
 
     render() {
@@ -27,4 +35,13 @@ class Cell extends Component {
     }
 }
 
-export default Cell;
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleCell:(indexX, indexY) => dispatch(toggleCell(indexX, indexY))
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps 
+)(Cell);

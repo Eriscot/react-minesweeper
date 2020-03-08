@@ -14,20 +14,19 @@ const steps = [
 function generateField() {
     const mineField = []
     for(let rowCount = 0; rowCount < 10; rowCount++) {
+        mineField.push([]);
         for(let columnCount = 0; columnCount < 10; columnCount++) {
-            mineField.push(new Cell(rowCount, columnCount));
+            mineField[rowCount].push(new Cell(rowCount, columnCount));
         }
     }
     for(let rowCount = 0; rowCount < 10; rowCount++) {
         for(let columnCount = 0; columnCount < 10; columnCount++) {
-            const Cell = mineField[rowCount * 10 + columnCount];
+            const Cell = mineField[rowCount][columnCount];
             if(!Cell.getIsMine){
                 for(let step = 0; step < steps.length; step++) {
-                    const [ x, y ] = steps[step]; 
-                    const checkCell = mineField[(rowCount + x) * 10 + (columnCount + y)];
-                    if((rowCount + x) >= 0 && (rowCount + x) < 10 
-                        && (columnCount + y) >= 0 && (columnCount + y) < 10
-                        && checkCell.getIsMine){
+                    const [ x, y ] = steps[step];
+                    let checkCell;
+                    if(mineField[rowCount + x] && (checkCell = mineField[rowCount + x][columnCount + y]) && checkCell.getIsMine){
                         Cell._minesNearby += 1;
                     }
                 }
@@ -45,12 +44,14 @@ const minesweeperReducer = (state = initialState, action) => {
             });
         case TOGGLE_CELL:
             return Object.assign({}, state, {
-                mineField: state.map(element => {
-                    if(element.getCoordX === action.payload.coordX && 
-                        element.getCoordY === action.payload.coordY) {
-                            element.isHidden = !element.getIsHidden;
-                        }
-                    return element;
+                mineField: state.mineField.map(row => {
+                    return row.map(cell => {
+                        if(cell.getCoordX === action.payload.indexX && 
+                            cell.getCoordY === action.payload.indexY) {
+                                cell.isHidden = !cell.getIsHidden;
+                            }
+                        return cell;
+                    });
                 })
             });
         default:

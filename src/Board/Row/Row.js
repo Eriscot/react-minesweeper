@@ -11,7 +11,7 @@ class Row extends Component {
     render() {
         let row = [];
         for(let i = 0; i < 10; i++) {
-            row.push(<Cell key={i} cell={this.props.cellRow[i]} />);
+            row.push(<Cell key={Math.random() * 1000000000} cell={this.props.cellRow[i]} />);
         }
         return (
             <tr>
