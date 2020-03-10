@@ -4,16 +4,12 @@ import Row from './Row/Row';
 import './Board.css';
 
 class Board extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
 
     render() {
         let board = [];
         let markup;
         for(let i = 0; i < 10; i++) {
-            board.push(<Row key={Math.random() * 1000000000} row={i} cellRow={this.props.mineField[i]}/>);
+            board.push(<Row key={Math.random() * 100000} cellRow={this.props.mineField[i]}/>);
         }
         if(this.props.mineField.length) {
             markup = 

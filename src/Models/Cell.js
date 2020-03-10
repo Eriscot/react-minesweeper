@@ -1,16 +1,26 @@
 export class Cell {
+    _id;
     _isMine;
     _coordX;
     _coordY;
-    _isHidden;
     _minesNearby;
+    _isHidden;
 
     constructor(coordX, coordY) {
+        this._id = Math.random() * 1000000000;
         this._isMine = Math.random() < 0.15 ? true : false;
         this._coordX = coordX;
         this._coordY = coordY;
-        this._isHidden = true;
         this._minesNearby = 0;
+        this._isHidden = true;
+    }
+
+    get getId() {
+        return this._id;
+    }
+
+    get getMinesNearby() {
+        return this._minesNearby;
     }
 
     get getIsMine() {
@@ -29,11 +39,15 @@ export class Cell {
         return this._isHidden;
     }
 
-    get getMinesNearby() {
-        return this._minesNearby;
+    unhide() {
+        this._isHidden = false;
     }
 
-    set isHidden(isHidden) {
-        this._isHidden = isHidden;
+    set setMinesNearby(amount) {
+        this._minesNearby = amount;
+    }
+
+    toggleHidden() {
+        this._isHidden = !this._isHidden;
     }
 }
