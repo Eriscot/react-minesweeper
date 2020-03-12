@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import TableCell from '@material-ui/core/TableCell';
 
-import { toggleCell, gameLost } from '../../../redux/actions/mineFieldIndex';
+
+import { toggleCell, gameLost, markCell } from '../../../redux/actions/mineFieldIndex';
 
 import './Cell.css';
 import mine from '../../../assets/mine.png';
 import flag from '../../../assets/flag.png';
+import { withStyles } from '@material-ui/core';
+
+const StyledTableCell = withStyles(({palette}) => ({
+    head: {
+        backgroundColor: palette.common.black,
+        color: palette.common.white
+    }
+}))(TableCell);
 
 
 class Cell extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            marked: false,
-            content: null
+            marked: false
         }
+        this._content = null;
 
         this.onRightClickHandler = this.onRightClickHandler.bind(this);
         this.onClickHandler = this.onClickHandler.bind(this);
@@ -22,33 +32,15 @@ class Cell extends Component {
 
     onRightClickHandler(event) {
         event.preventDefault();
-        console.log(this.state);
-        this.setState({
-            marked: !this.state.marked
-        });
-        console.log(this.state);
-        if(this.state.marked) {
-            this.setState({
-                content: <img src={flag} alt='mark'/>
-            });
-        } else {
-            this.setState({
-                content: null
-            });
-        }
+        this.props.markCell(this.props.cell.getCoordX, this.props.cell.getCoordY);
     }
 
     onClickHandler(event) {
         event.preventDefault();
-        if(!this.state.marked) {
+        if(!this.props.cell.getIsMarked) {
             if(this.props.cell.getIsMine) {
                 alert('The game is over!');
                 this.props.gameLost();
-                this.setState(() => {
-                    return { 
-                        content: this.props.cell.getIsMine ? <img src={mine} width='10px' height='10px' alt='Mine'/> : this.props.cell.getMinesNearby
-                    };
-                });
             } else {
                 this.props.toggleCell(this.props.cell.getCoordX, this.props.cell.getCoordY);
             }
@@ -56,13 +48,19 @@ class Cell extends Component {
     }
 
     render() {
+        let content = !this.props.cell.getIsMarked 
+        ? (!this.props.cell.getIsHidden
+            ? (!this.props.cell.getIsMine ? this.props.cell.getMinesNearby : <img src={mine} width='10px' height='10px' alt='mine' />)
+            : null)
+        : <img src={flag} width='10px' height='10px' alt='flag' />;
         return (
-            <td 
+            <StyledTableCell
                 onClick={this.onClickHandler} 
                 onContextMenu={this.onRightClickHandler}
+                clas
             >
-                {this.state.content}
-            </td>
+                {content}
+            </StyledTableCell>
             );
     }
 }
@@ -70,6 +68,7 @@ class Cell extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         toggleCell:(indexX, indexY) => dispatch(toggleCell(indexX, indexY)),
+        markCell: (indexX, indexY) => dispatch(markCell(indexX, indexY)),
         gameLost: () => dispatch(gameLost())
     };
 }

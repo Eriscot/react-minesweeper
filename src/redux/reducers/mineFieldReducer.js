@@ -1,4 +1,4 @@
-import { START_GAME, TOGGLE_CELL, GAME_LOST } from '../actions/mineFieldActions'
+import { START_GAME, TOGGLE_CELL, GAME_LOST, MARK_CELL } from '../actions/mineFieldActions'
 import { Cell } from '../../Models/Cell'
 
 const initialState = {
@@ -60,6 +60,12 @@ function revealAllMines(mineField) {
     return newMineField;
 }
 
+function markCell(mineField, indexX, indexY) {
+    const newMineField = [...mineField];
+    newMineField[indexX][indexY].toggleMarked();
+    return newMineField;
+}
+
 const minesweeperReducer = (state = initialState, action) => {
     switch(action.type) {
         case START_GAME:
@@ -69,6 +75,10 @@ const minesweeperReducer = (state = initialState, action) => {
         case TOGGLE_CELL:
             return Object.assign({}, state, {
                 mineField: revealMinesOnClick(state.mineField, action.payload.indexX, action.payload.indexY)
+            });
+        case MARK_CELL:
+            return Object.assign({}, state, {
+                mineField: markCell(state.mineField, action.payload.indexX, action.payload.indexY)
             });
         case GAME_LOST:
             return Object.assign({}, state, {

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import Cell from './Cell/Cell';
+import TableRow from '@material-ui/core/TableRow';
 
 class Row extends Component {
 
     render() {
-        console.log(this.props.cellRow);
         let row = [];
         for(let i = 0; i < 10; i++) {
-            row.push(<Cell key={this.props.cellRow[i].getId} cell={this.props.cellRow[i]} />);
+            row.push(<Cell key={Math.random() * 1000000000} cell={this.props.cellRow[i]} />);
         }
         return (
-            <tr>
+            <TableRow>
                 {row}
-            </tr>
+            </TableRow>
         );
     }
 }

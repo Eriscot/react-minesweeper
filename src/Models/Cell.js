@@ -5,6 +5,7 @@ export class Cell {
     _coordY;
     _minesNearby;
     _isHidden;
+    _isMarked;
 
     constructor(coordX, coordY) {
         this._id = Math.random() * 1000000000;
@@ -13,6 +14,7 @@ export class Cell {
         this._coordY = coordY;
         this._minesNearby = 0;
         this._isHidden = true;
+        this._isMarked = false;
     }
 
     get getId() {
@@ -38,16 +40,24 @@ export class Cell {
     get getIsHidden() {
         return this._isHidden;
     }
-
-    unhide() {
-        this._isHidden = false;
+    
+    get getIsMarked() {
+        return this._isMarked;
     }
 
     set setMinesNearby(amount) {
         this._minesNearby = amount;
     }
 
+    unhide() {
+        this._isHidden = false;
+    }
+
     toggleHidden() {
         this._isHidden = !this._isHidden;
+    }
+
+    toggleMarked() {
+        this._isMarked = !this._isMarked;
     }
 }
