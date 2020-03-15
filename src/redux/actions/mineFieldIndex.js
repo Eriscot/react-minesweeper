@@ -31,3 +31,15 @@ export function gameLost() {
         type: C.GAME_LOST
     }
 }
+
+export function mineMarked() {
+    return {
+        type: C.MINE_MARKED
+    }
+}
+
+export function mineUnmarked() {
+    return {
+        type: C.MINE_UNMARKED
+    }
+}

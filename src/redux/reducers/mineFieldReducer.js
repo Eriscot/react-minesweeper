@@ -33,27 +33,11 @@ function revealMinesOnClick(mineField, rowOfCell, columnOfCell) {
     let newMineField = [...mineField];
     let clickedCell = newMineField[rowOfCell][columnOfCell];
     clickedCell.minesNearby = minesNearby(newMineField, clickedCell);
-    console.log('Cell ', rowOfCell, columnOfCell, ' has ', clickedCell.minesNearby, ' mines');
     clickedCell.unhide();
-    console.log(clickedCell.minesNearby === 0);
     if(clickedCell.minesNearby === 0) {
-        // newMineField = newMineField.map((row, rowIndex) => {
-        //     if(rowIndex >= Math.max(rowOfCell - 1, 0) && rowIndex <= Math.min(rowOfCell + 1, 9)) {
-        //         return row.map((cell, columnIndex) => {
-        //             if(columnIndex >= Math.max(columnOfCell - 1, 0) && columnIndex <= Math.min(columnOfCell + 1, 9)) {
-        //                 console.log('Mine ' + rowOfCell + columnOfCell + ' revealed');
-        //                 revealMinesOnClick(newMineField, rowIndex, columnIndex);
-        //             }
-        //             return cell;
-        //         });
-        //     }
-        //     return row;
-        // });
         for(let row = Math.max(rowOfCell - 1, 0); row <= Math.min(rowOfCell + 1, 9); row++) {
             for(let column = Math.max(columnOfCell - 1, 0); column <= Math.min(columnOfCell + 1, 9); column++) {
-                console.log(row, column);
                 if(newMineField[row][column].isHidden) {
-                    console.log('Cell ', row, column, ' is about to unhide')
                     newMineField = [...revealMinesOnClick(newMineField, row, column)];
                 }
             }
@@ -73,15 +57,37 @@ function revealAllMines(mineField) {
     return newMineField;
 }
 
+function minesAmount(mineField) {
+    let amount = 0;
+    mineField.forEach(row => {
+        row.forEach(cell => {
+            if(cell.isMine) {
+                amount++;
+            }
+        });
+    });
+    return amount;
+}
+
 const minesweeperReducer = (state = initialState, action) => {
     switch(action.type) {
         case C.START_GAME:
+            let mineField = generateField();
             return Object.assign({}, state, {
-                mineField: generateField()
+                mineField,
+                minesLeft: minesAmount(mineField)
             });
         case C.TOGGLE_CELL:
             return Object.assign({}, state, {
                 mineField: revealMinesOnClick(state.mineField, action.payload.indexX, action.payload.indexY)
+            });
+        case C.MINE_MARKED:
+            return Object.assign({}, state, {
+                minesLeft: state.minesLeft - 1
+            });
+        case C.MINE_UNMARKED:
+            return Object.assign({}, state, {
+                minesLeft: state.minesLeft + 1
             });
         case C.GAME_LOST:
             return Object.assign({}, state, {

@@ -11,3 +11,11 @@ td {
 .shown {
     background-color: brown;
 }
+
+.marked {
+    background-color: chocolate;
+}
+
+.mine {
+    background-color: gray;
+}

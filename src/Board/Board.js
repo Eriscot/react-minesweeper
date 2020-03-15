@@ -6,10 +6,11 @@ import './Board.css';
 class Board extends Component {
 
     render() {
-        console.log('Board render');
+        if(this.props.minesLeft === 0) {
+            alert('You won!');
+        }
         let board = [];
         let markup;
-        console.log(this.props.mineField);
         for(let i = 0; i < 10; i++) {
             board.push(<Row key={i} cellRow={this.props.mineField[i]}/>);
         }
@@ -35,7 +36,8 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        mineField: state.mineField
+        mineField: state.mineField,
+        minesLeft: state.minesLeft
     };
 }
 
