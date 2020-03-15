@@ -1,0 +1,12 @@
+{
+    "mineField": [
+        {
+            "id": "00",
+            "coordX": 0,
+            "coordY": 0,
+            "isMine": true,
+            "isHidden": true
+        },
+        ...
+    ]
+}

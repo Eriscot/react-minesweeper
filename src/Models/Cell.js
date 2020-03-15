@@ -4,60 +4,45 @@ export class Cell {
     _coordX;
     _coordY;
     _minesNearby;
-    _isHidden;
-    _isMarked;
 
     constructor(coordX, coordY) {
-        this._id = Math.random() * 1000000000;
+        this._id = '' + coordX + coordY;
         this._isMine = Math.random() < 0.15 ? true : false;
         this._coordX = coordX;
         this._coordY = coordY;
-        this._minesNearby = 0;
         this._isHidden = true;
-        this._isMarked = false;
+        this._minesNearby = 0;
     }
 
-    get getId() {
+    get id() {
         return this._id;
     }
 
-    get getMinesNearby() {
-        return this._minesNearby;
-    }
-
-    get getIsMine() {
+    get isMine() {
         return this._isMine;
     }
 
-    get getCoordX() {
+    get coordX() {
         return this._coordX;
     }
 
-    get getCoordY() {
+    get coordY() {
         return this._coordY;
     }
 
-    get getIsHidden() {
+    get isHidden() {
         return this._isHidden;
     }
+
+    get minesNearby() {
+        return this._minesNearby;
+    }
+
+    set minesNearby(minesNearby) {
+        this._minesNearby = minesNearby;
+    }
     
-    get getIsMarked() {
-        return this._isMarked;
-    }
-
-    set setMinesNearby(amount) {
-        this._minesNearby = amount;
-    }
-
     unhide() {
         this._isHidden = false;
-    }
-
-    toggleHidden() {
-        this._isHidden = !this._isHidden;
-    }
-
-    toggleMarked() {
-        this._isMarked = !this._isMarked;
     }
 }

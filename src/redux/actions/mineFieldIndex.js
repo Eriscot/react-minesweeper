@@ -1,14 +1,14 @@
-import { START_GAME, TOGGLE_CELL, MARK_CELL, GAME_LOST } from './mineFieldActions';
+import C from './mineFieldActions';
 
 export function startGame() {
     return {
-        type: START_GAME
+        type: C.START_GAME
     }
 }
 
 export function toggleCell(indexX, indexY) {
     return {
-        type: TOGGLE_CELL,
+        type: C.TOGGLE_CELL,
         payload: {
             indexX,
             indexY
@@ -18,7 +18,7 @@ export function toggleCell(indexX, indexY) {
 
 export function markCell(indexX, indexY) {
     return {
-        type: MARK_CELL,
+        type: C.MARK_CELL,
         payload: {
             indexX, 
             indexY
@@ -28,6 +28,6 @@ export function markCell(indexX, indexY) {
 
 export function gameLost() {
     return {
-        type: GAME_LOST
+        type: C.GAME_LOST
     }
 }

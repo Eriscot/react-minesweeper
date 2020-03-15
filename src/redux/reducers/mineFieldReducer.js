@@ -1,86 +1,88 @@
-import { START_GAME, TOGGLE_CELL, GAME_LOST, MARK_CELL } from '../actions/mineFieldActions'
+import C from '../actions/mineFieldActions';
 import { Cell } from '../../Models/Cell'
 
 const initialState = {
     mineField: []
-}
+};
 
 function generateField() {
-    const mineField = []
+    const mineField = [];
     for(let row = 0; row < 10; row++) {
-        mineField.push([]);
+        let rowArray = [];
         for(let column = 0; column < 10; column++) {
-            mineField[row].push(new Cell(row, column));
+            rowArray.push(new Cell(row, column));
         }
+        mineField.push(rowArray);
     }
-    for(let row = 0; row < 10; row++) {
-        for(let column = 0; column < 10; column++) {
-            minesNearby(mineField, row, column);
-        }
-    }
+    console.log(mineField);
     return mineField;
 }
 
-function minesNearby(mineField, rowOfCell, columnOfCell) {
-    const newMineField = [...mineField];
+function minesNearby(mineField, cell) {
     let amount = 0;
-    for(let row = Math.max(rowOfCell - 1, 0); row <= Math.min(rowOfCell + 1, 9); row++) {
-        for(let column = Math.max(columnOfCell - 1, 0); column <= Math.min(columnOfCell + 1, 9); column++) {
-            if(mineField[row][column].getIsMine) {
+    for(let row = Math.max(cell.coordX - 1, 0); row <= Math.min(cell.coordX + 1, 9); row++) {
+        for(let column = Math.max(cell.coordY - 1, 0); column <= Math.min(cell.coordY + 1, 9); column++) {
+            if(mineField[row][column].isMine) {
                 amount++;
             }
         }
     }
-    newMineField[rowOfCell][columnOfCell].setMinesNearby = amount;
-    return newMineField;
+    return amount;
 }
 
 function revealMinesOnClick(mineField, rowOfCell, columnOfCell) {
     let newMineField = [...mineField];
-    newMineField[rowOfCell][columnOfCell].toggleHidden();
-    if(mineField[rowOfCell][columnOfCell].getMinesNearby === 0) {
-        for(let row = Math.max(rowOfCell - 1, 0); row <= Math.min(rowOfCell + 1, 9); row++) {
-            for(let column = Math.max(columnOfCell - 1, 0); column <= Math.min(columnOfCell + 1, 9); column++) {
-                if(mineField[row][column].getIsHidden) {
-                    newMineField = [...revealMinesOnClick(newMineField, row, column)];
-                }
+    let clickedCell = newMineField[rowOfCell][columnOfCell];
+    clickedCell.minesNearby = minesNearby(newMineField, clickedCell);
+    clickedCell.unhide();
+    if(clickedCell.getMinesNearby === 0) {
+        newMineField = newMineField.map((row, rowIndex) => {
+            if(rowIndex >= Math.max(rowOfCell - 1, 0) && rowIndex <= Math.min(rowOfCell + 1, 9)) {
+                return row.map((cell, columnIndex) => {
+                    if(columnIndex >= Math.max(columnOfCell - 1, 0) && columnIndex <= Math.min(columnOfCell + 1, 9)) {
+                        console.log('Mine ' + rowOfCell + columnOfCell + ' revealed');
+                        revealMinesOnClick(newMineField, rowIndex, columnIndex);
+                    }
+                    return cell;
+                });
             }
-        }
+            return row;
+        });
+        // for(let row = Math.max(rowOfCell - 1, 0); row <= Math.min(rowOfCell + 1, 9); row++) {
+        //     for(let column = Math.max(columnOfCell - 1, 0); column <= Math.min(columnOfCell + 1, 9); column++) {
+        //         if(newMineField[rowOfCell][columnOfCell].getIsHidden) {
+        //             newMineField = [...revealMinesOnClick(newMineField, row, column)];
+        //         }
+        //     }
+        // }
     }
+    console.log(newMineField);
     return newMineField;
 }
 
 function revealAllMines(mineField) {
     const newMineField = mineField.map(row => {
         return row.map(cell => {
+            cell.minesNearby = minesNearby(mineField, cell);
             cell.unhide();
             return cell;
-        })
+        });
     });
-    return newMineField;
-}
-
-function markCell(mineField, indexX, indexY) {
-    const newMineField = [...mineField];
-    newMineField[indexX][indexY].toggleMarked();
     return newMineField;
 }
 
 const minesweeperReducer = (state = initialState, action) => {
     switch(action.type) {
-        case START_GAME:
+        case C.START_GAME:
             return Object.assign({}, state, {
                 mineField: generateField()
             });
-        case TOGGLE_CELL:
+        case C.TOGGLE_CELL:
+            console.log('Toggle cell executed');
             return Object.assign({}, state, {
                 mineField: revealMinesOnClick(state.mineField, action.payload.indexX, action.payload.indexY)
             });
-        case MARK_CELL:
-            return Object.assign({}, state, {
-                mineField: markCell(state.mineField, action.payload.indexX, action.payload.indexY)
-            });
-        case GAME_LOST:
+        case C.GAME_LOST:
             return Object.assign({}, state, {
                 mineField: revealAllMines(state.mineField)
             });

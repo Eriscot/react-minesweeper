@@ -10,10 +10,11 @@ import './Board.css';
 class Board extends Component {
 
     render() {
+        console.log('Board render');
         let board = [];
         let markup;
         for(let i = 0; i < 10; i++) {
-            board.push(<Row key={Math.random() * 1000000000} cellRow={this.props.mineField[i]}/>);
+            board.push(<Row key={i} indexX={i}/>);
         }
         if(this.props.mineField.length) {
             markup = 
@@ -38,9 +39,9 @@ class Board extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-      mineField: [...state.mineField]
-    }
+    return Object.assign({}, {
+        mineField: state.mineField
+    });
 }
 
 export default connect(

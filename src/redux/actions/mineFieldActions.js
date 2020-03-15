@@ -1,4 +1,7 @@
-export const START_GAME = 'START_GAME';
-export const TOGGLE_CELL = 'TOGGLE_CELL';
-export const MARK_CELL = 'MARK_CELL';
-export const GAME_LOST = 'GAME_LOST';
+const constants = {
+    START_GAME: 'START_GAME',
+    TOGGLE_CELL: 'TOGGLE_CELL',
+    GAME_LOST: 'GAME_LOST'
+};
+
+export default constants;
