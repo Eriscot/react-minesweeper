@@ -1,3 +1,13 @@
 td {
     padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+.hidden {
+    background-color: black;
+}
+
+.shown {
+    background-color: brown;
 }

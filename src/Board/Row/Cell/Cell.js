@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TableCell from '@material-ui/core/TableCell';
 
 import { toggleCell, gameLost } from '../../../redux/actions/mineFieldIndex';
 
@@ -12,10 +11,9 @@ class Cell extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hidden: true,
             marked: false
         }
-        this._content = null;
+        this.className = 'hidden';
 
         this.onRightClickHandler = this.onRightClickHandler.bind(this);
         this.onClickHandler = this.onClickHandler.bind(this);
@@ -37,38 +35,30 @@ class Cell extends Component {
                 alert('The game is over!');
                 this.props.gameLost();
             } else {
-                console.log('Cell ' + this.props.cell.id + ' clicked');
                 this.props.toggleCell(this.props.cell.coordX, this.props.cell.coordY);
             }
         }
     }
 
     render() {
-        // console.log('Cell ' + this.props.cell.id + ' rendered');
         let content = !this.props.cell.isHidden 
         ? (!this.state.marked 
             ? ( this.props.cell.isMine 
                 ? <img src={mine} width='10px' height='10px' alt='mine' /> 
-                : this.props.cell.minesNearby
+                : ( this.className = 'shown', this.props.cell.minesNearby)
               ) 
             : <img src={flag} width='10px' height='10px' alt='flag' />
           ) : null;
         return (
-            <TableCell
+            <td
                 onClick={this.onClickHandler} 
                 onContextMenu={this.onRightClickHandler}
+                className={this.className}
             >
                 {content}
-            </TableCell>
+            </td>
             );
     }
-}
-
-const mapStateToProps = (state, ownProps) => {
-    const test = Object.assign({}, {
-        cell: state.mineField[ownProps.indexX][ownProps.indexY]
-    });
-    return test;
 }
 
 const mapDispatchToProps = dispatch => {
@@ -79,6 +69,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-    mapStateToProps, 
+    null, 
     mapDispatchToProps 
 )(Cell);

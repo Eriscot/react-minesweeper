@@ -7,12 +7,14 @@ class App extends Component {
   render() {
     return (
       <>
-        <main>
-          <Board />
+        <SideMenu />
+        <Board />
+        {/* <main>
+          
         </main>
         <aside>
-          <SideMenu />
-        </aside>
+          
+        </aside> */}
       </>
     );
   }

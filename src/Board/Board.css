@@ -4,10 +4,16 @@
     justify-content: center;
 }
 
-/* table {
-    border-collapse: collapse;
-} */
+tr {
+    display: flex;
+    flex-direction: row;
+}
 
 td {
+    display: block;
     border: 1px solid #333333;
+    border-radius: 3px;
+    margin: 2px;
+    min-width: 20px;
+    min-height: 20px;
 }
