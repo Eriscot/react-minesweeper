@@ -79,7 +79,6 @@ function markedToggle(mineField, indexX, indexY) {
             return cell;
         })
     });
-    console.log(newMineField);
     return newMineField;
 }
 
@@ -107,9 +106,7 @@ const minesweeperReducer = (state = initialState, action) => {
                 mineField: markedToggle(state.mineField, action.payload.indexX, action.payload.indexY),
                 minesLeft: state.minesLeft + inc
             });
-        case C.GAME_WON:
-        case C.GAME_LOST:
-            console.log('test');
+        case C.GAME_IS_OVER:
             return Object.assign({}, state, {
                 mineField: revealAllMines(state.mineField)
             });

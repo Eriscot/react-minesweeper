@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { toggleCell, gameLost, mineMarked, mineUnmarked, markedToggle } from '../../../redux/actions/mineFieldIndex';
+import { toggleCell, gameIsOver, markedToggle } from '../../../redux/actions/mineFieldIndex';
 
 import './Cell.css';
 import mine from '../../../assets/mine.png';
@@ -28,7 +28,7 @@ class Cell extends Component {
         if(!this.props.cell.isMarked) {
             if(this.props.cell.isMine) {
                 alert('The game is over!');
-                this.props.gameLost();
+                this.props.gameIsOver();
             } else {
                 this.props.toggleCell(this.props.cell.coordX, this.props.cell.coordY);
             }
@@ -60,7 +60,7 @@ class Cell extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         toggleCell:(indexX, indexY) => dispatch(toggleCell(indexX, indexY)),
-        gameLost: () => dispatch(gameLost()),
+        gameIsOver: () => dispatch(gameIsOver()),
         markedToggle: (indexX, indexY) => dispatch(markedToggle(indexX, indexY))
     };
 }
