@@ -32,6 +32,12 @@ export function gameLost() {
     }
 }
 
+export function gameWon() {
+    return {
+        type: C.GAME_WON
+    }
+}
+
 export function mineMarked() {
     return {
         type: C.MINE_MARKED
@@ -41,5 +47,15 @@ export function mineMarked() {
 export function mineUnmarked() {
     return {
         type: C.MINE_UNMARKED
+    }
+}
+
+export function markedToggle(indexX, indexY) {
+    return {
+        type: C.MARKED_TOGGLE,
+        payload: {
+            indexX,
+            indexY
+        }
     }
 }

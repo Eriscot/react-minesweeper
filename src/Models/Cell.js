@@ -4,6 +4,7 @@ export class Cell {
     _coordX;
     _coordY;
     _minesNearby;
+    _isMarked;
 
     constructor(coordX, coordY) {
         this._id = '' + coordX + coordY;
@@ -11,6 +12,7 @@ export class Cell {
         this._coordX = coordX;
         this._coordY = coordY;
         this._isHidden = true;
+        this._isMarked = false;
         this._minesNearby = 0;
     }
 
@@ -36,6 +38,14 @@ export class Cell {
 
     get minesNearby() {
         return this._minesNearby;
+    }
+
+    get isMarked() {
+        return this._isMarked;
+    }
+
+    toggleMarked() {
+        this._isMarked = !this._isMarked;
     }
 
     set minesNearby(minesNearby) {

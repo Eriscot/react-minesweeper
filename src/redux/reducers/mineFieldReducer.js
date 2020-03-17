@@ -69,6 +69,20 @@ function minesAmount(mineField) {
     return amount;
 }
 
+function markedToggle(mineField, indexX, indexY) {
+    const newMineField = mineField.map(row => {
+        return row.map(cell => {
+            if(cell.coordX === indexX && cell.coordY === indexY) {
+                cell.toggleMarked()
+                return cell;
+            }
+            return cell;
+        })
+    });
+    console.log(newMineField);
+    return newMineField;
+}
+
 const minesweeperReducer = (state = initialState, action) => {
     switch(action.type) {
         case C.START_GAME:
@@ -81,15 +95,21 @@ const minesweeperReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 mineField: revealMinesOnClick(state.mineField, action.payload.indexX, action.payload.indexY)
             });
-        case C.MINE_MARKED:
+        case C.MARKED_TOGGLE: 
+            let inc = 0;
+            if(state.mineField[action.payload.indexX][action.payload.indexY].isMine){
+                inc = -1;
+                if(state.mineField[action.payload.indexX][action.payload.indexY].isMarked) {
+                    inc = 1;
+                }
+            }
             return Object.assign({}, state, {
-                minesLeft: state.minesLeft - 1
+                mineField: markedToggle(state.mineField, action.payload.indexX, action.payload.indexY),
+                minesLeft: state.minesLeft + inc
             });
-        case C.MINE_UNMARKED:
-            return Object.assign({}, state, {
-                minesLeft: state.minesLeft + 1
-            });
+        case C.GAME_WON:
         case C.GAME_LOST:
+            console.log('test');
             return Object.assign({}, state, {
                 mineField: revealAllMines(state.mineField)
             });
