@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Row from './Row/Row';
 import './Board.css';
-import { gameIsOver } from '../redux/actions/mineFieldIndex';
 
 class Board extends Component {
 
