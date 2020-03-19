@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import MinesLeft from './Counter/MinesLeft.js/MinesLeft';
+import MinesLeft from './Counter/MinesLeft/MinesLeft';
 import TimeCounter from './Counter/TimeCounter/TimeCounter';
-import PlayButton from './PlayButton/PlayButton';
 import './InfoTab.css'
+import ConnectedPlayButton from './PlayButton/ConnectedPlayButton';
 
 class InfoTab extends Component {
     render() {
+        console.log(this.props);
         return (
             <div id='InfoTab'>
-                <MinesLeft value={10015}/>
-                <PlayButton />
-                <TimeCounter value={7}/>
+                <MinesLeft value={this.props.minesLeft}/>
+                <ConnectedPlayButton />
+                <TimeCounter value={this.props.time}/>
             </div>
         );
     }

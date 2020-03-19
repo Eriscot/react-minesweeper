@@ -1,5 +1,11 @@
 import C from './mineFieldActions';
 
+export function newGame() {
+    return {
+        type: C.NEW_GAME
+    }
+}
+
 export function startGame() {
     return {
         type: C.START_GAME

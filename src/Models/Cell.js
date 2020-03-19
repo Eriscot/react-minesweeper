@@ -1,4 +1,4 @@
-export class Cell {
+class Cell {
     _id;
     _isMine;
     _coordX;
@@ -6,9 +6,9 @@ export class Cell {
     _minesNearby;
     _isMarked;
 
-    constructor(coordX, coordY) {
+    constructor(isMine, coordX, coordY) {
         this._id = '' + coordX + coordY;
-        this._isMine = Math.random() < 0.15 ? true : false;
+        this._isMine = isMine;
         this._coordX = coordX;
         this._coordY = coordY;
         this._isHidden = true;
@@ -56,3 +56,5 @@ export class Cell {
         this._isHidden = false;
     }
 }
+
+export default Cell;

@@ -10,7 +10,6 @@ import d8 from '../../../assets/d8.png';
 import d9 from '../../../assets/d9.png';
 
 const imgCompute = (value) => {
-    console.log(value);
     switch(value){
         case 0:
             return d0;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import MineField from './MineField/MineField';
-import InfoTab from './InfoTab/InfoTab';
 import './Board.css';
 import ConnectedMineField from './MineField/ConnectedMineField';
+import ConnectedInfoTab from './InfoTab/ConnectedInfoTab';
 
 class Board extends Component {
 
@@ -35,7 +34,7 @@ class Board extends Component {
         // );
         return (
             <div id='Board'>
-                <InfoTab />
+                <ConnectedInfoTab />
                 <ConnectedMineField />
             </div>
         );

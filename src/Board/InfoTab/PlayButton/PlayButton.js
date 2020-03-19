@@ -22,6 +22,7 @@ class PlayButton extends Component {
         this.setState({
             condition: face
         });
+        this.props.newGame();
     }
 
     render() {
