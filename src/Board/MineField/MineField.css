@@ -1,0 +1,10 @@
+#MineField {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 5px;
+    border-top: 3px solid rgb(71, 70, 70);
+    border-left: 3px solid rgb(71, 70, 70);
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+}

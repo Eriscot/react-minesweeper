@@ -1,0 +1,18 @@
+#InfoTab {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-top: 3px solid rgb(71, 70, 70);
+    border-left: 3px solid rgb(71, 70, 70);
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+}
+
+section {
+    margin: 0 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

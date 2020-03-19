@@ -10,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: gray;
 }
 
 code {
@@ -18,6 +19,11 @@ code {
 }
 
 #root {
-  width: 75%;
-  margin: auto;
+  width: 25%;
+  margin: 5px auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }

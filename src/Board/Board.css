@@ -1,19 +1,10 @@
-.table-wrapper {
+#Board {
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-tr {
-    display: flex;
-    flex-direction: row;
-}
-
-td {
-    display: block;
-    border: 1px solid #333333;
-    border-radius: 3px;
-    margin: 2px;
-    min-width: 20px;
-    min-height: 20px;
+    flex-direction: column;
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    border-bottom: 3px solid rgb(71, 70, 70);
+    border-right: 3px solid rgb(71, 70, 70);
+    background-color: rgb(201, 201, 201);
+    padding: 10px;
 }
