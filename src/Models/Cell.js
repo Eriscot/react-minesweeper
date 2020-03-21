@@ -44,6 +44,10 @@ class Cell {
         return this._isMarked;
     }
 
+    set isMine(isMine) {
+        this._isMine = isMine;
+    }
+
     toggleMarked() {
         this._isMarked = !this._isMarked;
     }

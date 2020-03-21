@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import './Cell.css';
 import imgCompute from './imgCompute';
 
-
 class Cell extends Component {
     constructor(props) {
         super(props);
@@ -13,12 +12,12 @@ class Cell extends Component {
             condition: false
         }
 
-        this.handleOnMouseLeave = this.handleOnMouseLeave.bind(this);
-        this.handleOnMouseOver = this.handleOnMouseOver.bind(this);
-        this.handleOnMouseDown = this.handleOnMouseDown.bind(this);
-        this.handleOnMouseUp = this.handleOnMouseUp.bind(this);
-        // this.onRightClickHandler = this.onRightClickHandler.bind(this);
-        // this.onClickHandler = this.onClickHandler.bind(this);
+        // this.handleOnMouseLeave = this.handleOnMouseLeave.bind(this);
+        // this.handleOnMouseOver = this.handleOnMouseOver.bind(this);
+        // this.handleOnMouseDown = this.handleOnMouseDown.bind(this);
+        // this.handleOnMouseUp = this.handleOnMouseUp.bind(this);
+        this.handleOnContextMenu = this.handleOnContextMenu.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this)
     }
 
     // onRightClickHandler(event) {
@@ -37,36 +36,78 @@ class Cell extends Component {
     //     }
     // }
 
-    handleOnMouseDown(event) {
+    // handleOnMouseDown(event) {
+    //     event.preventDefault();
+    //     this.setState({
+    //         condition: true
+    //     });
+    // }
+
+    handleOnClick(event) {
         event.preventDefault();
-        this.setState({
-            condition: true
-        });
+        this.props.toggleCell(this.props.coordX, this.props.coordY);
     }
 
-    handleOnMouseUp(event) {
-        console.log(this.props.cell.minesNearby);
-        this.setState({
-            condition: this.props.cell.minesNearby
-        })
-    }
+    // handleOnMouseUp(event) {
+    //     if(this.props.cell.isMine) {
+    //         alert('You lost');
+    //         this.props.gameIsOver();
+    //         this.setState({
+    //             condition: 9
+    //         });
+    //     } else {
+    //         this.setState({
+    //             condition: this.props.cell.minesNearby
+    //         });
+    //     }
+    // }
 
-    handleOnMouseLeave(event) {
-        if(event.buttons === 1) {
-            this.setState({
-                condition: false
-            });
-        }
-    }
+    // handleOnMouseLeave(event) {
+    //     if(event.buttons === 1) {
+    //         this.setState({
+    //             condition: false
+    //         });
+    //     }
+    // }
 
-    handleOnMouseOver(event) {
+    // handleOnMouseOver(event) {
+    //     event.preventDefault();
+    //     if(event.buttons === 1) {
+    //         this.handleOnMouseDown(event);
+    //     }
+    // }
+
+    handleOnContextMenu(event) {
         event.preventDefault();
-        if(event.buttons === 1) {
-            this.handleOnMouseDown(event);
-        }
+        this.props.markedToggle(this.props.cell.coordX, this.props.cell.coordY)
+    }
+
+    imgPicker(value) {
+        return <img 
+            src={imgCompute(value)} 
+            alt=''
+            // onMouseLeave={this.handleOnMouseLeave}
+            // onMouseOver={this.handleOnMouseOver}
+            // onMouseDown={this.handleOnMouseDown}
+            // onMouseUp={this.handleOnMouseUp} 
+            onContextMenu={this.handleOnContextMenu}
+            onClick={this.handleOnClick}
+            />
     }
 
     render() {
+        let content;
+        if(this.props.cell.isMarked) {
+            content = this.imgPicker('marked');
+        } else if(this.props.cell.isHidden) {
+            content = this.imgPicker(false);
+        } else {
+            content = this.imgPicker(this.props.cell.minesNearby);
+            if(this.props.cell.isMine) {
+                content = this.imgPicker(9)
+            }
+        }
+        console.log('test');
         // let content = !this.props.cell.isMarked 
         // ? ( !this.props.cell.isHidden
         //     ? ( this.props.cell.isMine 
@@ -84,16 +125,18 @@ class Cell extends Component {
         //     >
         //         {content}
         //     </td>
-        //     );
+        //     );'
+
         return (
-            <img 
-                src={imgCompute(this.state.condition)} 
-                alt=''
-                onMouseLeave={this.handleOnMouseLeave}
-                onMouseOver={this.handleOnMouseOver}
-                onMouseDown={this.handleOnMouseDown}
-                onMouseUp={this.handleOnMouseUp}
-            />
+            // <img 
+            //     src={imgCompute(this.state.condition)} 
+            //     alt=''
+            //     onMouseLeave={this.handleOnMouseLeave}
+            //     onMouseOver={this.handleOnMouseOver}
+            //     onMouseDown={this.handleOnMouseDown}
+            //     onMouseUp={this.handleOnMouseUp}
+            // />
+            content
         );
     }
 }

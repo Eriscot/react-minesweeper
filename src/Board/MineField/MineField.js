@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
 import './MineField.css';
-import Cell from './Cell/Cell';
+import ConnectedCell from './Cell/ConnectedCell';
 
 class MineField extends Component {
-
-
     render() {
-        console.log(this.props.mineField);
-        const mineField = this.props.mineField.map((element, index) => {
-            if(index % 10 === 0) {
-                return (
-                    <>
-                        <div className='break' />
-                        <Cell key={element.id} cell={element}/>
-                    </>
-                );
+        const mineField = [];
+        for(let i = 0; i < 10; i++) {
+            for(let j = 0; j < 10; j++) {
+                mineField.push(<ConnectedCell key={'' + i + j} coordX={i} coordY={j}/>)
             }
-            return <Cell key={element.id} cell={element}/>
-        });
+            mineField.push(<div className='break' />);
+        }
         return (
             <div id='MineField'>
                 {mineField}

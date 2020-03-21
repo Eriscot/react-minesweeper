@@ -8,6 +8,8 @@ import tile5 from '../../../assets/t5.png';
 import tile6 from '../../../assets/t6.png';
 import tile7 from '../../../assets/t7.png';
 import tile8 from '../../../assets/t8.png';
+import tile9 from '../../../assets/t-1.png';
+import tileMarked from '../../../assets/tm.png';
 
 const imgCompute = value => {
     switch(value) {
@@ -32,6 +34,10 @@ const imgCompute = value => {
             return tile7;
         case 8:
             return tile8;
+        case 9:
+            return tile9;
+        case 'marked':
+            return tileMarked;
         default:
             throw new Error('Wrong input');
     }
