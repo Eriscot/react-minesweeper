@@ -6,9 +6,9 @@ class Cell {
     _minesNearby;
     _isMarked;
 
-    constructor(isMine, coordX, coordY) {
+    constructor(coordX, coordY) {
         this._id = '' + coordX + coordY;
-        this._isMine = isMine;
+        this._isMine = false;
         this._coordX = coordX;
         this._coordY = coordY;
         this._isHidden = true;

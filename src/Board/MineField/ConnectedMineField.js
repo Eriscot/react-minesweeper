@@ -1,22 +1,23 @@
 import { connect } from 'react-redux';
 import MineField from './MineField';
+import { startTimer } from '../../redux/actions/mineFieldIndex';
 
 const mapStateToProps = state => {
     return {
-        mineField: state.mineField
+        gameIsOn: state.gameIsOn,
+        timeIsOn: state.timeIsOn
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        startTimer: () => dispatch(startTimer())
     };
 };
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-
-//     };
-// };
-
 const ConnectedMineField = connect(
     mapStateToProps,
-    null
-    // mapDispatchToProps
+    mapDispatchToProps
 )(MineField);
 
 export default ConnectedMineField;

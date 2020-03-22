@@ -12,22 +12,20 @@ export function startGame() {
     }
 }
 
-export function toggleCell(indexX, indexY) {
+export function toggleCell(cell) {
     return {
         type: C.TOGGLE_CELL,
         payload: {
-            indexX,
-            indexY
+            cell
         }
     }
 }
 
-export function markCell(indexX, indexY) {
+export function markCell(cell) {
     return {
         type: C.MARK_CELL,
         payload: {
-            indexX, 
-            indexY
+            cell
         }
     }
 }
@@ -38,12 +36,23 @@ export function gameIsOver() {
     }
 }
 
-export function markedToggle(indexX, indexY) {
+export function markedToggle(cell) {
     return {
         type: C.MARKED_TOGGLE,
         payload: {
-            indexX,
-            indexY
+            cell
         }
+    }
+}
+
+export function timeTick() {
+    return {
+        type: C.TIME_TICK
+    }
+}
+
+export function startTimer() {
+    return{
+        type: C.START_TIMER
     }
 }

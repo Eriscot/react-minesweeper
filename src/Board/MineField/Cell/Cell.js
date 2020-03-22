@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 // import { toggleCell, gameIsOver, markedToggle } from '../../../redux/actions/mineFieldIndex';
 
-import './Cell.css';
 import imgCompute from './imgCompute';
 
 class Cell extends Component {
@@ -45,7 +44,16 @@ class Cell extends Component {
 
     handleOnClick(event) {
         event.preventDefault();
-        this.props.toggleCell(this.props.coordX, this.props.coordY);
+        if(this.props.gameIsOn) {
+            if(!this.props.cell.isMarked) {
+                if(!this.props.cell.isMine) {
+                    this.props.toggleCell(this.props.cell);
+                } else {
+                    alert('You lost!');
+                    this.props.gameIsOver();
+                }
+            }
+        }
     }
 
     // handleOnMouseUp(event) {
@@ -79,7 +87,9 @@ class Cell extends Component {
 
     handleOnContextMenu(event) {
         event.preventDefault();
-        this.props.markedToggle(this.props.cell.coordX, this.props.cell.coordY)
+        if(this.props.cell.isHidden) {
+            this.props.markedToggle(this.props.cell);
+        }
     }
 
     imgPicker(value) {
@@ -107,7 +117,6 @@ class Cell extends Component {
                 content = this.imgPicker(9)
             }
         }
-        console.log('test');
         // let content = !this.props.cell.isMarked 
         // ? ( !this.props.cell.isHidden
         //     ? ( this.props.cell.isMine 
@@ -137,6 +146,7 @@ class Cell extends Component {
             //     onMouseUp={this.handleOnMouseUp}
             // />
             content
+            // 'Test'
         );
     }
 }

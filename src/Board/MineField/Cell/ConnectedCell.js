@@ -4,18 +4,16 @@ import { toggleCell, gameIsOver, markedToggle } from '../../../redux/actions/min
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        cell: state.mineField.find(
-            element => element.coordX === ownProps.coordX && element.coordY === ownProps.coordY
-        ),
-        mineField: state.mineField
+        cell: state.mineField['' + ownProps.coordX + ownProps.coordY],
+        gameIsOn: state.gameIsOn
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        toggleCell: (coordX, coordY) => dispatch(toggleCell(coordX, coordY)),
+        toggleCell: (cell) => dispatch(toggleCell(cell)),
         gameIsOver: () => dispatch(gameIsOver()),
-        markedToggle: (coordX, coordY) => dispatch(markedToggle(coordX, coordY))
+        markedToggle: (cell) => dispatch(markedToggle(cell))
     }
 }
 

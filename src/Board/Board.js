@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './Board.css';
 import ConnectedInfoTab from './InfoTab/ConnectedInfoTab';
-import MineField from './MineField/MineField';
+import ConnectedMineField from './MineField/ConnectedMineField';
 
 class Board extends Component {
 
     render() {
-        console.log('test');
         // if(this.props.minesLeft === 0) {
         //     alert('You won');
         //     this.props.gameIsOver();
@@ -36,7 +35,7 @@ class Board extends Component {
         return (
             <div id='Board'>
                 <ConnectedInfoTab />
-                <MineField />
+                <ConnectedMineField />
             </div>
         );
     }
