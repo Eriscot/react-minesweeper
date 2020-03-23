@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
 import MineField from './MineField';
-import { startTimer } from '../../redux/actions/mineFieldIndex';
+import { gameIsOver } from '../../redux/actions/mineFieldIndex';
 
 const mapStateToProps = state => {
     return {
-        gameIsOn: state.gameIsOn,
-        timeIsOn: state.timeIsOn
+        cellsLeft: state.hiddenMines.length,
+        mines: state.mines
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        startTimer: () => dispatch(startTimer())
-    };
-};
+        gameIsOver: () => dispatch(gameIsOver())
+    }
+}
 
 const ConnectedMineField = connect(
     mapStateToProps,

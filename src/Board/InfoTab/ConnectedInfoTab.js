@@ -3,7 +3,7 @@ import InfoTab from './InfoTab';
 
 const mapStateToProps = state => {
     return {
-        minesLeft: state.minesLeft,
+        minesLeft: state.mines - state.cellsMarked,
         time: state.time
     };
 }

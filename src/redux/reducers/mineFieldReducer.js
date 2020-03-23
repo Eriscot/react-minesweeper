@@ -1,10 +1,13 @@
 import C from '../actions/mineFieldActions';
 import Cell from '../../Models/Cell';
 
+let mineField = generateField(10);
+
 const initialState = {
-    mineField: generateField(10),
-    minesLeft: 10,
-    minesMarked: 0,
+    mineField,
+    mines: 10,
+    cellsMarked: 0,
+    hiddenMines: hiddenMines(10),
     gameIsOn: true,
     timeIsOn: false,
     time: 0
@@ -27,6 +30,16 @@ function generateField(amount) {
         }
     }
     return mineField;
+}
+
+function hiddenMines(mineField) {
+    const hiddenMines = []
+    for(let cell in mineField) {
+        if(mineField[cell].isHidden) {
+            hiddenMines.push(cell);
+        }
+    }
+    return hiddenMines;
 }
 
 function minesNearby(mineField, cell) {
@@ -67,10 +80,8 @@ function revealAllMines(mineField) {
         if(newCell.isMine) {
             newCell.unhide();
         }
-        debugger;
         newMineField[newCell.id] = newCell;
     }
-    console.log(newMineField);
     return newMineField;
 }
 
@@ -83,11 +94,15 @@ function markedToggle(mineField, cell) {
 }
 
 const minesweeperReducer = (state = initialState, action) => {
+    let mineField;
     switch(action.type) {
         case C.NEW_GAME:
+            mineField = generateField(10) 
             return Object.assign({}, state, {
-                mineField: generateField(10),
-                minesLeft: 10,
+                mineField,
+                hiddenMines: hiddenMines(mineField),
+                mines: 10,
+                cellsMarked: 0,
                 gameIsOn: true,
                 timeIsOn: false,
                 time: 0
@@ -97,24 +112,27 @@ const minesweeperReducer = (state = initialState, action) => {
                 timeIsOn: true
             })
         case C.TOGGLE_CELL:
+            mineField = revealMinesOnClick(state.mineField, action.payload.cell);
             return Object.assign({}, state, {
-                mineField: revealMinesOnClick(state.mineField, action.payload.cell)
+                mineField,
+                hiddenMines: hiddenMines(mineField),
             });
         case C.MARKED_TOGGLE: 
             let inc = 0;
-            if(action.payload.cell.isMine){
+            if(action.payload.cell.isMarked) {
+                inc = 1;
+            } else {
                 inc = -1;
-                if(action.payload.cell.isMarked) {
-                    inc = 1;
-                }
             }
+            mineField = markedToggle(state.mineField, action.payload.cell)
             return Object.assign({}, state, {
-                mineField: markedToggle(state.mineField, action.payload.cell),
-                minesLeft: state.minesLeft + inc
+                mineField,
+                cellsMarked: state.cellsMarked - inc
             });
         case C.GAME_IS_OVER:
+            mineField = revealAllMines(state.mineField);
             return Object.assign({}, state, {
-                mineField: revealAllMines(state.mineField),
+                mineField,
                 gameIsOn: false, 
                 timeIsOn: false
             });

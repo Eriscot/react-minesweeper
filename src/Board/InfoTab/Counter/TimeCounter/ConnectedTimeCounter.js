@@ -3,7 +3,6 @@ import TimeCounter from './TimeCounter';
 import { timeTick } from '../../../../redux/actions/mineFieldIndex';
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         time: state.time,
         timeIsOn: state.timeIsOn

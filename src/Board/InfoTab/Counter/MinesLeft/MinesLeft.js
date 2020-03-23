@@ -1,6 +1,5 @@
 import React from 'react';
 import Counter from '../Counter';
-import './MinesLeft.css';
 
 const MinesLeft = (props) => {
     return (

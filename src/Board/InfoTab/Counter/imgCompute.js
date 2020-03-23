@@ -8,9 +8,12 @@ import d6 from '../../../assets/d6.png';
 import d7 from '../../../assets/d7.png';
 import d8 from '../../../assets/d8.png';
 import d9 from '../../../assets/d9.png';
+import _d from '../../../assets/d-.png';
 
 const imgCompute = (value) => {
     switch(value){
+        case -1:
+            return _d;
         case 0:
             return d0;
         case 1:

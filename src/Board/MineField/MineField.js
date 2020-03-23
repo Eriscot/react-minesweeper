@@ -4,6 +4,13 @@ import ConnectedCell from './Cell/ConnectedCell';
 
 class MineField extends Component {
 
+    componentDidUpdate() {
+        if(this.props.mines === this.props.cellsLeft) {
+            alert('You won!');
+            this.props.gameIsOver();
+        }
+    }
+
     render() {
         const mineField = [];
         for(let i = 0; i < 10; i++) {
@@ -13,12 +20,7 @@ class MineField extends Component {
             mineField.push(<div className='break' />);
         }
         return (
-            <div id='MineField'
-                onClick={
-                    () => {
-                        if(this.props.gameIsOn && !this.props.timeIsOn) this.props.startTimer();
-                    }
-                }>
+            <div id='MineField'>
                 {mineField}
             </div>
         );
