@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Button from './Button/Button';
 import face from '../../../assets/face.png';
 import faceClicked from '../../../assets/faceClicked.png';
+import ButtonComponent from './Button/ButtonComponent';
 
 class PlayButton extends Component {
     constructor(props) {
@@ -10,6 +10,9 @@ class PlayButton extends Component {
         this.state = {
             condition: face
         }
+
+        this.handleOnMouseDown = this.handleOnMouseDown.bind(this);
+        this.handleOnMouseUp = this.handleOnMouseUp.bind(this);
     }
 
     handleOnMouseDown() {
@@ -28,10 +31,10 @@ class PlayButton extends Component {
     render() {
         return (
             <section>
-                <Button 
+                <ButtonComponent 
                     condition={this.state.condition} 
-                    onMouseDown={() => this.handleOnMouseDown()} 
-                    onMouseUp={() => this.handleOnMouseUp()} 
+                    onMouseDown={this.handleOnMouseDown} 
+                    onMouseUp={this.handleOnMouseUp} 
                     />
             </section>
         );

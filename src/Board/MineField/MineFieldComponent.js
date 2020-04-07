@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MineField.css';
 import ConnectedCell from './Cell/ConnectedCell';
 
-class MineField extends Component {
+class MineFieldComponent extends Component {
 
     componentDidUpdate() {
         if(this.props.mines === this.props.cellsLeft) {
@@ -27,4 +27,4 @@ class MineField extends Component {
     }
 }
 
-export default MineField;
+export default MineFieldComponent;

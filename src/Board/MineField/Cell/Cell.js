@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import imgCompute from './imgCompute';
+import imgCompute, { C } from './imgCompute';
 
 class Cell extends Component {
     constructor(props) {
@@ -44,13 +44,13 @@ class Cell extends Component {
     render() {
         let content;
         if(this.props.cell.isMarked) {
-            content = this.imgPicker('marked');
+            content = this.imgPicker(C.tileMarked);
         } else if(this.props.cell.isHidden) {
-            content = this.imgPicker(false);
+            content = this.imgPicker(C.tileHidden);
         } else {
-            content = this.imgPicker(this.props.cell.minesNearby);
+            content = this.imgPicker(C['tile' + this.props.cell.minesNearby]);
             if(this.props.cell.isMine) {
-                content = this.imgPicker(9)
+                content = this.imgPicker(C.tileMine)
             }
         }
         return (content);

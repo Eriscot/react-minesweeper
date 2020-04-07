@@ -3,7 +3,7 @@ import './Board.css';
 import ConnectedInfoTab from './InfoTab/ConnectedInfoTab';
 import ConnectedMineField from './MineField/ConnectedMineField';
 
-class Board extends Component {
+class BoardComponent extends Component {
 
     render() {
         return (
@@ -15,4 +15,4 @@ class Board extends Component {
     }
 }
 
-export default Board;
+export default BoardComponent;

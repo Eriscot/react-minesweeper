@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Counter from '../Counter';
+import CounterComponent from '../CounterComponent';
 
 class TimeCounter extends Component {
         timer;
@@ -20,7 +20,7 @@ class TimeCounter extends Component {
         render() {
             return (
                 <section>
-                    <Counter value={this.props.time} />
+                    <CounterComponent value={this.props.time} />
                 </section>
             );
         }

@@ -1,10 +1,10 @@
 import React from 'react';
-import Counter from '../Counter';
+import CounterComponent from '../CounterComponent';
 
 const MinesLeft = (props) => {
     return (
         <section id='MinesLeft'>
-            <Counter {...props} />
+            <CounterComponent {...props} />
         </section>
     );
 }

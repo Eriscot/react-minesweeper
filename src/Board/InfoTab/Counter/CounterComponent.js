@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import imgCompute from './imgCompute';
 
-class Counter extends Component {
+class CounterComponent extends Component {
     render() {
         let number = Math.min(this.props.value, 999);
         let counter = [];
@@ -13,4 +13,4 @@ class Counter extends Component {
     }
 }
 
-export default Counter;
+export default CounterComponent;

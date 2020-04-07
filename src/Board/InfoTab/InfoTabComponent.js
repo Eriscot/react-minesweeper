@@ -4,7 +4,7 @@ import './InfoTab.css'
 import ConnectedPlayButton from './PlayButton/ConnectedPlayButton';
 import ConnectedTimeCounter from './Counter/TimeCounter/ConnectedTimeCounter';
 
-class InfoTab extends Component {
+class InfoTabComponent extends Component {
     render() {
         return (
             <div id='InfoTab'>
@@ -16,4 +16,4 @@ class InfoTab extends Component {
     }
 }
 
-export default InfoTab;
+export default InfoTabComponent;

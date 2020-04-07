@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import InfoTab from './InfoTab';
+import InfoTabComponent from './InfoTabComponent';
 
 const mapStateToProps = state => {
     return {
@@ -11,6 +11,6 @@ const mapStateToProps = state => {
 const ConnectedInfoTab = connect(
     mapStateToProps,
     null
-)(InfoTab)
+)(InfoTabComponent)
 
 export default ConnectedInfoTab;

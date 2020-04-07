@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import MineField from './MineField';
 import { gameIsOver } from '../../redux/actions/mineFieldIndex';
+import MineFieldComponent from './MineFieldComponent';
 
 const mapStateToProps = state => {
     return {
@@ -18,6 +18,6 @@ const mapDispatchToProps = dispatch => {
 const ConnectedMineField = connect(
     mapStateToProps,
     mapDispatchToProps
-)(MineField);
+)(MineFieldComponent);
 
 export default ConnectedMineField;
