@@ -25,9 +25,3 @@ export const C = {
     tileMarked,
     tileClicked
 }
-
-const imgCompute = value => {
-    return C[value];
-}
-
-export default imgCompute;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import imgCompute, { C } from './imgCompute';
+import { C } from './imgCompute';
+import CellComponent from './CellComponent';
 
 class Cell extends Component {
     constructor(props) {
@@ -32,28 +33,30 @@ class Cell extends Component {
         }
     }
 
-    imgPicker(value) {
-        return <img 
-            src={imgCompute(value)} 
-            alt=''
-            onContextMenu={this.handleOnContextMenu}
-            onClick={this.handleOnClick}
-            />
-    }
 
     render() {
-        let content;
+        let value;
         if(this.props.cell.isMarked) {
-            content = this.imgPicker(C.tileMarked);
+            value = C.tileMarked;
         } else if(this.props.cell.isHidden) {
-            content = this.imgPicker(C.tileHidden);
+            value = C.tileHidden;
         } else {
-            content = this.imgPicker(C['tile' + this.props.cell.minesNearby]);
+            if(this.props.cell.minesNearby) {
+                value = C['tile' + this.props.cell.minesNearby];
+            } else {
+                value = C.tileClicked;
+            }
             if(this.props.cell.isMine) {
-                content = this.imgPicker(C.tileMine)
+                value = C.tileMine;
             }
         }
-        return (content);
+        return (
+            <CellComponent 
+                value={value} 
+                handleOnContextMenu={this.handleOnContextMenu}
+                handleOnClick={this.handleOnClick}
+            />
+        );
     }
 }
 

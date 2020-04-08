@@ -17,7 +17,7 @@ class MineFieldComponent extends Component {
             for(let j = 0; j < 10; j++) {
                 mineField.push(<ConnectedCell key={'' + i + j} coordX={i} coordY={j}/>)
             }
-            mineField.push(<div className='break' />);
+            mineField.push(<div key={Math.random() * 10000} className='break' />);
         }
         return (
             <div id='MineField'>
